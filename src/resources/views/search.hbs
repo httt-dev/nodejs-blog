@@ -1,0 +1,12 @@
+<div class="mt-10">
+    <form method="GET">
+    {{!-- <form method="GET" action="/news"> --}}
+        {{!-- De thiet lap request toi url nao thi setting thuoc tinh action --}}
+    <div class="form-group">
+        <label for="search-input">Keyword</label>
+        <input type="text" name="q" class="form-control" id="search-input" aria-describedby="emailHelp" placeholder="input keyword">
+    </div>
+    {{!-- khi nhan button SUBMIT thi cac the input co name thi se duoc chuyen thanh query string  neu la GET method--}}
+    <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div> 

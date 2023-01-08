@@ -2,8 +2,12 @@ const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const { engine } = require("express-handlebars");
+const route = require("./routes/index");
 
+const db = require("./config/db/index");
 //import { engine } from 'express-handlebars';
+
+db.connect();
 
 const app = express();
 const port = 3000;
@@ -11,9 +15,9 @@ const port = 3000;
 //add them middleware de xu ly cho req.body ( neu khong thi req.body se co tri la undefine)
 //doi voi express version < 4.16 thi chua ho tro middlware nay , luc nay se can install them body-parser
 app.use(
-  express.urlencoded({
-    extended: true,
-  })
+    express.urlencoded({
+        extended: true,
+    })
 );
 app.use(express.json());
 
@@ -34,30 +38,18 @@ app.use(morgan("combined"));
 // app.engine("hbs", hbs.engine);
 
 app.engine(
-  "hbs",
-  engine({
-    extname: ".hbs",
-  })
+    "hbs",
+    engine({
+        extname: ".hbs",
+    })
 );
 
 app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "resources\\views"));
+app.set("views", path.join(__dirname, "resources", "views"));
 
-app.get("/", (req, res) => res.render("home"));
-
-app.get("/search", (req, res) => {
-  //get param : req.query.xxx
-
-  res.render("search");
-});
-
-app.post("/search", (req, res) => {
-  //get data from FormData
-  // req.body  ( can middlware de xu ly  luu data gui len tu client vao bien body)
-
-  res.render("search");
-});
+//routes init
+route(app);
 
 app.listen(port, () =>
-  console.log(`App listening at http://localhost:${port}`)
+    console.log(`App listening at http://localhost:${port}`)
 );
